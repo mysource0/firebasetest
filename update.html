@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Update Sensor Values</title>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyBm_VvF1OJrLzb010ImgxVaCt7izUK382Q",
+            authDomain: "ledtest-7d77d.firebaseapp.com",
+            databaseURL: "https://ledtest-7d77d-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "ledtest-7d77d",
+            storageBucket: "ledtest-7d77d.firebasestorage.app",
+            messagingSenderId: "93448662040",
+            appId: "1:93448662040:web:d6cecc8ed85fc9e295676d",
+            measurementId: "G-383K6DK0HY"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        function updateValues() {
+            var database = firebase.database();
+            var ref = database.ref('sensors');
+            ref.set({
+                Nitrogen: document.getElementById('nitrogen').value,
+                Phosphorus: document.getElementById('phosphorus').value,
+                Potassium: document.getElementById('potassium').value,
+                ph: document.getElementById('ph').value
+            });
+        }
+    </script>
+</head>
+<body>
+    <h1>Update Sensor Values</h1>
+    <p>Nitrogen: <input type="number" id="nitrogen"></p>
+    <p>Phosphorus: <input type="number" id="phosphorus"></p>
+    <p>Potassium: <input type="number" id="potassium"></p>
+    <p>pH: <input type="number" id="ph"></p>
+    <button onclick="updateValues()">Update</button>
+</body>
+</html>

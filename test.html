@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Read Sensor Values</title>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyBm_VvF1OJrLzb010ImgxVaCt7izUK382Q",
+            authDomain: "ledtest-7d77d.firebaseapp.com",
+            databaseURL: "https://ledtest-7d77d-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "ledtest-7d77d",
+            storageBucket: "ledtest-7d77d.firebasestorage.app",
+            messagingSenderId: "93448662040",
+            appId: "1:93448662040:web:d6cecc8ed85fc9e295676d",
+            measurementId: "G-383K6DK0HY"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        // Global variables to store the data
+        var nitrogenValue, phosphorusValue, potassiumValue, phValue;
+
+        function readValues() {
+            var database = firebase.database();
+            var ref = database.ref('sensors');
+            ref.on('value', (snapshot) => {
+                const data = snapshot.val();
+                nitrogenValue = data.Nitrogen;
+                phosphorusValue = data.Phosphorus;
+                potassiumValue = data.Potassium;
+                phValue = data.ph;
+
+                console.log('Nitrogen:', nitrogenValue);
+                console.log('Phosphorus:', phosphorusValue);
+                console.log('Potassium:', potassiumValue);
+                console.log('pH:', phValue);
+
+                document.getElementById('nitrogen').innerText = nitrogenValue;
+                document.getElementById('phosphorus').innerText = phosphorusValue;
+                document.getElementById('potassium').innerText = potassiumValue;
+                document.getElementById('ph').innerText = phValue;
+            });
+        }
+
+        // Functions to return live values
+        function getNitrogenValue() {
+            return nitrogenValue;
+        }
+
+        function getPhosphorusValue() {
+            return phosphorusValue;
+        }
+
+        function getPotassiumValue() {
+            return potassiumValue;
+        }
+
+        function getPhValue() {
+            return phValue;
+        }
+    </script>
+</head>
+<body onload="readValues()">
+    <h1>Sensor Values</h1>
+    <p>Nitrogen: <span id="nitrogen"></span></p>
+    <p>Phosphorus: <span id="phosphorus"></span></p>
+    <p>Potassium: <span id="potassium"></span></p>
+    <p>pH: <span id="ph"></span></p>
+</body>
+</html>
